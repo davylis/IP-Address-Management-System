@@ -13,25 +13,43 @@
 <div class="col-md-4">
     <h3>Welcome! </h3>
 </div>
+</div>
+<div class="row mb-3">
+    <div class="col text-left">
+        <a class="btn btn-primary" href="/addippool">Add New IP Pool</a>
+        <br>
+    </div>
+</div>
+
     <table class="table table-stripe">
         <thead>
             <tr>
-                <th>IP Range</th>
+                <th>ID</th>
+                <th>Name</th>
                 <th>Description</th>
+                <th>Start IP</th>
+                <th>End IP</th>
+                <th>Subnet Mask</th>
+                <th>Gateway</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="ipPool : ${ippools}">
-                <td th:text="${ipPool.range}"></td>
+                <td th:text="${ipPool.id}"></td>
+                <td th:text="${ipPool.name}"></td>
                 <td th:text="${ipPool.description}"></td>
+                <td th:text="${ipPool.startIp}"></td>
+                <td th:text="${ipPool.endIp}"></td>
+                <td th:text="${ipPool.subnetMask}"></td>
+                <td th:text="${ipPool.gateway}"></td>
                 <td>
                     <a th:href="@{/edit/{id}(id=${ipPool.id})}">Edit</a> |
                     <a th:href="@{/deleteippool/{id}(id=${ipPool.id})}">Delete</a>
                 </td>
             </tr>
         </tbody>
+        
     </table>
-    <a href="/addippool">Add New IP Pool</a>
 </body>
 </html>
