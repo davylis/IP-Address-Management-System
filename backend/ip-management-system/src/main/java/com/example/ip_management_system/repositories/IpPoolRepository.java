@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IpPoolRepository extends JpaRepository<IpPool, Long> {
-    List<IpPool> findByIpRange(String ipRange);
+    List<IpPool> findByName(String name);            
+    List<IpPool> findByStartIp(String startIp);
+    List<IpPool> findByStartIpAndEndIp(String startIp, String endIp);
 }
