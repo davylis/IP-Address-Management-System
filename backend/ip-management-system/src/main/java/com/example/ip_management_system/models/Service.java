@@ -1,6 +1,5 @@
 package com.example.ip_management_system.models;
-
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,83 +21,120 @@ public class Service {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ip_pool_id")
+    @JoinColumn(name = "ippoolid", nullable = false)
     private IpPool ipPool;
 
-    @Column(nullable=false)
-    private Integer port;
+    @Column(nullable = false)
+    private int port;
 
-    @Column(name = "service_name")
+    @Column(nullable = false)
     private String serviceName;
 
     @Enumerated(EnumType.STRING)
-    private Status status = Status.ACTIVE;
+    @Column(nullable = false)
+    private ServiceStatus status;  // Enum for service status (ACTIVE or INACTIVE)
 
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private Date updatedAt;
 
-    public enum Status {
-        ACTIVE, INACTIVE
-    }
-
-
+    /**
+     * @return Long return the id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * @return IpPool return the ipPool
+     */
     public IpPool getIpPool() {
         return ipPool;
     }
 
+    /**
+     * @param ipPool the ipPool to set
+     */
     public void setIpPool(IpPool ipPool) {
         this.ipPool = ipPool;
     }
 
-    public Integer getPort() {
+    /**
+     * @return int return the port
+     */
+    public int getPort() {
         return port;
     }
 
-    public void setPort(Integer port) {
+    /**
+     * @param port the port to set
+     */
+    public void setPort(int port) {
         this.port = port;
     }
 
+    /**
+     * @return String return the serviceName
+     */
     public String getServiceName() {
         return serviceName;
     }
 
+    /**
+     * @param serviceName the serviceName to set
+     */
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
 
-    public Status getStatus() {
+    public ServiceStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(ServiceStatus status) {
         this.status = status;
     }
 
-    public LocalDateTime getCreatedAt() {
+    /**
+     * @return Date return the createdAt
+     */
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    /**
+     * @return Date return the updatedAt
+     */
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    /**
+     * @param updatedAt the updatedAt to set
+     */
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public enum ServiceStatus {
+        ACTIVE,
+        INACTIVE
     }
 
 }
