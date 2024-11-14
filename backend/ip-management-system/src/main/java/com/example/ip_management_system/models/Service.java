@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "services")
 public class Service {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
