@@ -36,7 +36,7 @@ public class IpPool {
     private String gateway;
 
     @OneToMany(mappedBy = "ipPool")
-    private List<Service> services;  // One-to-many relationship with services
+    private List<IpAddress> services;  // One-to-many relationship with services
 
     @Column(name = "created_at", updatable = false)
     private String createdAt;
