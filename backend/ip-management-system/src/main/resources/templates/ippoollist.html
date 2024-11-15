@@ -44,6 +44,7 @@
                 <td th:text="${ipPool.subnetMask}"></td>
                 <td th:text="${ipPool.gateway}"></td>
                 <td>
+                    <a class="btn btn-info btn-sm" th:href="@{/ippool/{id}(id=${pool.id})}">View IPs</a>
                     <a th:href="@{/edit/{id}(id=${ipPool.id})}">Edit</a> |
                     <a th:href="@{/deleteippool/{id}(id=${ipPool.id})}">Delete</a>
                 </td>
