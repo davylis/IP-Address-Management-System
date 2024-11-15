@@ -45,7 +45,7 @@ public class IpPoolController {
         return "redirect:/ippoollist";
     }
 
-    //edit an existing ip pool
+    //show edit ip pool form
     @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
     public String editIpPool(@PathVariable("id") Long id, Model model) {
         IpPool ipPool = ipPoolRepo.findById(id)
