@@ -1,5 +1,6 @@
 package com.example.ip_management_system.models;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,9 +28,6 @@ public class IpAddress {
     @Column(nullable = false)
     private String hostname;
 
-    @Column(nullable = false)
-    private int port;
-
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
@@ -39,9 +38,8 @@ public class IpAddress {
     @JoinColumn(name = "ippoolid", nullable = false)
     private IpPool ipPool;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ServiceStatus status;  // Enum for service status (ACTIVE or INACTIVE)
+    @OneToMany(mappedBy = "ipAddress")
+    private List<Service> services;
 
     public Long getId() {
         return id;
@@ -106,4 +104,19 @@ public class IpAddress {
     public void setServiceStatus(ServiceStatus status) {
         this.status = status;
     }
+
+    /**
+     * @return List<Service> return the services
+     */
+    public List<Service> getServices() {
+        return services;
+    }
+
+    /**
+     * @param services the services to set
+     */
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
 }

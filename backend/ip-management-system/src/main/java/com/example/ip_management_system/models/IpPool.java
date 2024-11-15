@@ -20,7 +20,7 @@ public class IpPool {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private String description;
 
     @Column(nullable = false)
@@ -28,9 +28,6 @@ public class IpPool {
 
     @Column(nullable = false)
     private String endIp;
-
-    @Column(nullable = false)
-    private String subnetMask;
 
     @Column(nullable = false)
     private String gateway;
@@ -115,23 +112,6 @@ public class IpPool {
         this.endIp = endIp;
     }
 
-    /**
-     * @return String return the subnetMask
-     */
-    public String getSubnetMask() {
-        return subnetMask;
-    }
-
-    /**
-     * @param subnetMask the subnetMask to set
-     */
-    public void setSubnetMask(String subnetMask) {
-        this.subnetMask = subnetMask;
-    }
-
-    /**
-     * @return String return the gateway
-     */
     public String getGateway() {
         return gateway;
     }
