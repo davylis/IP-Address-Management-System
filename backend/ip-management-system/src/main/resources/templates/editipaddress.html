@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit IP Address</title>
+    <title>Edit Service</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}">
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-4">Edit IP Address</h1>
-        <form th:action="@{/updateip/{id}(id=${ipAddress.id})}" method="post">
-            <input type="hidden" th:value="${ipAddress.ipPool.id}" name="ipPool.id" />
+        <h1 class="mb-4">Edit Service</h1>
+        <form th:action="@{/services/update/{id}(id=${service.id})}" method="post">
+            <input type="hidden" th:value="${service.ipAddress.id}" name="ipAddress.id" />
+
             <div class="mb-3">
-                <label for="ip" class="form-label">IP Address</label>
-                <input type="text" id="ip" name="ip" class="form-control" th:value="${ipAddress.ip}" required />
+                <label for="name" class="form-label">Service Name</label>
+                <input type="text" id="name" name="name" class="form-control" th:value="${service.name}" required />
             </div>
-            <div class="mb-3">
-                <label for="hostname" class="form-label">Hostname</label>
-                <input type="text" id="hostname" name="hostname" class="form-control" th:value="${ipAddress.hostname}" required />
-            </div>
+
+            <!-- Port -->
             <div class="mb-3">
                 <label for="port" class="form-label">Port</label>
-                <input type="number" id="port" name="port" class="form-control" th:value="${ipAddress.port}" required />
+                <input type="number" id="port" name="port" class="form-control" th:value="${service.port}" required />
             </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="3"
+                          th:text="${service.description}"></textarea>
+            </div>
+
+            <!-- URL Link -->
+            <div class="mb-3">
+                <label for="urlLink" class="form-label">URL Link</label>
+                <input type="url" id="urlLink" name="urlLink" class="form-control" th:value="${service.urlLink}" />
+            </div>
+
+            <!-- Status -->
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select id="status" name="status" class="form-select">
-                    <option value="ACTIVE" th:selected="${ipAddress.status == 'ACTIVE'}">Active</option>
-                    <option value="INACTIVE" th:selected="${ipAddress.status == 'INACTIVE'}">Inactive</option>
+                    <option value="ACTIVE" th:selected="${service.status == 'ACTIVE'}">Active</option>
+                    <option value="INACTIVE" th:selected="${service.status == 'INACTIVE'}">Inactive</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+
+            <!-- Buttons -->
+            <button type="submit" class="btn btn-primary">Update Service</button>
+            <a th:href="@{/services/{ipAddressId}(ipAddressId=${service.ipAddress.id})}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>
