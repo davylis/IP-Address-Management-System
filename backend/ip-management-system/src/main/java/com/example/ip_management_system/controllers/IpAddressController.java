@@ -67,8 +67,6 @@ public class IpAddressController {
             .orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
         existingIp.setIp(ipAddress.getIp());
         existingIp.setHostname(ipAddress.getHostname());
-        existingIp.setPort(ipAddress.getPort());
-        existingIp.setServiceStatus(ipAddress.getServiceStatus()); // Update ServiceStatus
         ipAddressRepo.save(existingIp);
         return "redirect:/ippool/" + existingIp.getIpPool().getId();
     }
