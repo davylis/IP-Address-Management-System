@@ -4,8 +4,6 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -65,14 +63,6 @@ public class IpAddress {
         this.hostname = hostname;
     }
 
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -97,24 +87,10 @@ public class IpAddress {
         this.ipPool = ipPool;
     }
 
-    public ServiceStatus getServiceStatus() {
-        return status;
-    }
-
-    public void setServiceStatus(ServiceStatus status) {
-        this.status = status;
-    }
-
-    /**
-     * @return List<Service> return the services
-     */
     public List<Service> getServices() {
         return services;
     }
 
-    /**
-     * @param services the services to set
-     */
     public void setServices(List<Service> services) {
         this.services = services;
     }

@@ -12,4 +12,5 @@ public interface IpAddressRepository extends JpaRepository<IpAddress, Long> {
     List<IpAddress> findByIpPoolId(Long ipPoolId);
     IpAddress findByIp(String ip);
     void deleteByIp(String ip);
+    
 }
