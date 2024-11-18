@@ -29,7 +29,6 @@
                 <th>Description</th>
                 <th>Start IP</th>
                 <th>End IP</th>
-                <th>Subnet Mask</th>
                 <th>Gateway</th>
                 <th>Actions</th>
             </tr>
@@ -41,11 +40,10 @@
                 <td th:text="${ipPool.description}"></td>
                 <td th:text="${ipPool.startIp}"></td>
                 <td th:text="${ipPool.endIp}"></td>
-                <td th:text="${ipPool.subnetMask}"></td>
                 <td th:text="${ipPool.gateway}"></td>
                 <td>
-                    <a class="btn btn-info btn-sm" th:href="@{/ippool/{id}(id=${ipPool.id})}">View IPs</a>
-                    <a th:href="@{/edit/{id}(id=${ipPool.id})}">Edit</a> |
+                    <a class="btn btn-info btn-sm" th:href="@{/ippools/{id}(id=${ipPool.id})}">View IPs</a>
+                    <a th:href="@{/edit/{id}(id=${ipPool.id})}">Edit</a> 
                     <a th:href="@{/deleteippool/{id}(id=${ipPool.id})}">Delete</a>
                 </td>
             </tr>

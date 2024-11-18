@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.ip_management_system.repositories.IpPoolRepository;
 import com.example.ip_management_system.repositories.IpAddressRepository;
 import com.example.ip_management_system.models.IpAddress;
+import com.example.ip_management_system.models.IpPool;
 import com.example.ip_management_system.models.ServiceStatus;
 
 @Controller
@@ -26,11 +27,13 @@ public class IpAddressController {
     private IpPoolRepository ipPoolRepo;
 
     //show ip's for a specific pool
-    @RequestMapping("/ippool/{id}")
+    @RequestMapping(value = "/ippools/{id}", method = RequestMethod.GET)
     public String showIpsInPool(@PathVariable("id") Long id, Model model) {
         List<IpAddress> ipAddresses = ipAddressRepo.findByIpPoolId(id);
         model.addAttribute("ipAddresses", ipAddresses);
         model.addAttribute("ipPoolId", id);
+        IpPool ipPool = ipPoolRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID"));
+        model.addAttribute("ipPool", ipPool);
         return "ipaddresses";
     }
 
