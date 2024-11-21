@@ -26,6 +26,9 @@ public class IpAddress {
     @Column(nullable = false)
     private String hostname;
 
+    @Column(nullable = false)
+    private int port;
+
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
@@ -93,6 +96,15 @@ public class IpAddress {
 
     public void setServices(List<Service> services) {
         this.services = services;
+    }
+
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
 }

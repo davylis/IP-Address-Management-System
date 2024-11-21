@@ -13,4 +13,5 @@ public interface IpAddressRepository extends JpaRepository<IpAddress, Long> {
     IpAddress findByIp(String ip);
     void deleteByIp(String ip);
     
+    
 }

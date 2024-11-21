@@ -51,16 +51,19 @@ ipPoolRepository.save(ipPool2);
 IpAddress ip1 = new IpAddress();
 ip1.setIp("192.168.0.10");
 ip1.setHostname("host1");
+ip1.setPort(8080);
 ip1.setIpPool(ipPool1);
 
 IpAddress ip2 = new IpAddress();
 ip2.setIp("192.168.0.11");
 ip2.setHostname("host2");
-ip2.setIpPool(ipPool1);
+ip2.setPort(9090);
+ip2.setIpPool(ipPool2);
 
 IpAddress ip3 = new IpAddress();
 ip3.setIp("10.0.0.10");
 ip3.setHostname("host3");
+ip3.setPort(6060);
 ip3.setIpPool(ipPool2);
 
 // Save IP Addresses

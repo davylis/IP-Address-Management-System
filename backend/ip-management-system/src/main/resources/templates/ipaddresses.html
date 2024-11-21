@@ -2,18 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>IP Addresses</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}">
+    <link rel="preload" href="/css/bootstrap.min.css" as="style"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+
 </head>
 <body>
     <div class="container">
         <h1 class="mb-4">IP Addresses in Pool: <span th:text="${ipPool.name}"></span></h1>
         <a class="btn btn-primary mb-3" th:href="@{/addip/{id}(id=${ipPool.id})}">Add New IP Address</a>
         <table class="table table-striped">
-    </div><thead>
+    </div>
+    <thead>
         <tr>
             <th>ID</th>
             <th>IP</th>
             <th>Hostname</th>
+            <th>Port</th>
+            <th>Service ports</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -22,7 +27,14 @@
             <td th:text="${ip.id}"></td>
             <td th:text="${ip.ip}"></td>
             <td th:text="${ip.hostname}"></td>
+            <td th:text="${ip.port}"></td>
             <td>
+                <ul>
+                    <li th:each="service : ${ip.services}" th:text="${service.port}"></li>
+                </ul>
+            </td>
+            <td>
+                <a class="btn btn-warning btn-sm" th:href="@{/services/{ipAddressId}(ipAddressId=${ip.id})}">View Services</a>
                 <a class="btn btn-warning btn-sm" th:href="@{/editip/{id}(id=${ip.id})}">Edit</a>
                 <a class="btn btn-danger btn-sm" th:href="@{/deleteip/{id}(id=${ip.id})}">Delete</a>
             </td>

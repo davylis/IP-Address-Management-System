@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import com.example.ip_management_system.models.IpPool;
 import com.example.ip_management_system.repositories.IpPoolRepository;
 
+
 @Controller
 public class IpPoolController {
 
     @Autowired
     private IpPoolRepository ipPoolRepo;
+
 
     //show all ip pools
     @RequestMapping(value={"/", "ippoollist"})

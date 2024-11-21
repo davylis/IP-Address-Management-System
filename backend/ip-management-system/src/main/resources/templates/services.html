@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="UTF-8">
         <title>Services List</title>
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-    </head>
+        <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
     <body>
-        <h1>Services for IP Address</h1>
-        <table border="1">
-            <thead>
+        <div class="container">
+            <h1 class="mt-4 mb-4">Services for IP Address</h1>
+            <a href="/services/add" th:href="@{/services/add}" class="btn btn-primary mb-3">Add New Service</a>
+            <table class="table table-striped">
+        
+        <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
@@ -26,16 +28,18 @@
                 <td th:text="${service.description}"></td>
                 <td th:text="${service.port}"></td>
                 <td>
-                    <a href="${service.urlLink}" th:text="{service.urlLink} ?: 'N/A'" target="_blank"></a>
+                    <a href="${service.urlLink}" th:text="${service.urlLink != null ? service.urlLink : 'N/A'}" target="_blank"></a>
                 </td>
-                <td th:text="{service.status}"></td>
+                <td th:text="${service.status}"></td>
                 <td>
                     <a href="@{'/services/edit/' + ${service.id}}">Edit</a>
-                    <a href="@{'/services/delete/'+${service.id}}" onclick="return confirm('Are you sure you want to delete this service?');"">Delete</a>
+                    <a href="@{'/services/delete/'+${service.id}}" onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <button th:onclick="|location.href='@{/services/add}'|">Add New Service</button>
+    <a class="btn btn-secondary mt-3" th:href="@{/ippools/{id}(id=${ipPoolId})}">Back to IP Address List</a>
+
+</div>
 </body>
 </html>
