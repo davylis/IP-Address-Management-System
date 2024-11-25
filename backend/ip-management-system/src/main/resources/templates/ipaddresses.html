@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1 class="mb-4">IP Addresses in Pool: <span th:text="${ipPool.name}"></span></h1>
-        <a class="btn btn-warning btn-sm" th:href="@{/addip/{id}(id=${ipPool.id})}">Add New IP Address</a>
+        <a class="btn btn-warning btn-sm" th:href="@{/ipaddresses/add/{id}(id=${ipPool.id})}">Add New IP Address</a>
         <div style="height: 10px;"></div>
         <table class="table table-striped">
     </div>
@@ -34,13 +34,13 @@
             </td>
             <td>
                 <a class="btn btn-warning btn-sm" th:href="@{/services/{ipAddressId}(ipAddressId=${ip.id})}">View Services</a>
-                <a class="btn btn-warning btn-sm" th:href="@{/editip/{id}(id=${ip.id})}">Edit</a>
-                <a class="btn btn-warning btn-sm" th:href="@{/deleteip/{id}(id=${ip.id})}"onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
+                <a class="btn btn-warning btn-sm" th:href="@{/ipaddresses/edit/{id}(id=${ip.id})}">Edit</a>
+                <a class="btn btn-warning btn-sm" th:href="@{/ipaddresses/delete/{id}(id=${ip.id})}"onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
             </td>
         </tr>
     </tbody>
 </table>
-<a class="btn btn-secondary mt-3" href="/ippoollist">Back to Pools</a>
+<a class="btn btn-secondary mt-3" href="/ippools">Back to Pools</a>
 </div>
 </body>
 

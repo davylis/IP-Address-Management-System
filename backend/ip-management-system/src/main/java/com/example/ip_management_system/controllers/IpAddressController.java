@@ -21,6 +21,7 @@ import com.example.ip_management_system.models.Service;
 import com.example.ip_management_system.models.ServiceStatus;
 
 @Controller
+@RequestMapping("/ipaddresses")
 public class IpAddressController {
 
     @Autowired
@@ -33,11 +34,9 @@ public class IpAddressController {
     private ServiceRepository serviceRepo;
 
     //show ip's for a specific pool
-    @RequestMapping(value = "/ippools/{id}", method = RequestMethod.GET)
-    public String showIpsInPool(@PathVariable("id") Long id, Model model) {
-
+    @RequestMapping("/{ipPoolId}")
+    public String showIpsInPool(@PathVariable("ipPoolId") Long id, Model model) {
         IpPool ipPool = ipPoolRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID"));
-
         List<IpAddress> ipAddresses = ipAddressRepo.findByIpPoolId(id);
 
         model.addAttribute("ipAddresses", ipAddresses);
@@ -53,7 +52,7 @@ public class IpAddressController {
     }
 
     //add new ip address to a pool
-    @RequestMapping("/addip/{ipPoolId}")
+    @RequestMapping("/add/{ipPoolId}")
     public String addIpForm(@PathVariable("ipPoolId") Long ipPoolId, Model model) {
         IpAddress ipAddress = new IpAddress();
         ipAddress.setIpPool(ipPoolRepo.findById(ipPoolId).orElseThrow());
@@ -63,17 +62,17 @@ public class IpAddressController {
     }
 
     //save new ip address
-    @RequestMapping(value = "/saveip", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveIp(@ModelAttribute IpAddress ipAddress, @RequestParam Long ipPoolId) {
         IpPool ipPool = ipPoolRepo.findById(ipPoolId).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + ipPoolId));
         ipAddress.setIpPool(ipPool);
 
         ipAddressRepo.save(ipAddress);
-        return "redirect:/ippools/" + ipAddress.getIpPool().getId();
+        return "redirect:/ipaddresses/" + ipAddress.getIpPool().getId();
     }
 
     //edit ip address
-    @RequestMapping(value = "/editip/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editIpForm(@PathVariable("id") Long id, Model model) {
         IpAddress ipAddress = ipAddressRepo.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
@@ -82,17 +81,17 @@ public class IpAddressController {
     }
 
     //update ip address
-    @RequestMapping(value = "/updateip/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String updateIp(@PathVariable("id") Long id, @ModelAttribute IpAddress ipAddress) {
         IpAddress existingIp = ipAddressRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
         existingIp.setIp(ipAddress.getIp());
         existingIp.setHostname(ipAddress.getHostname());
         ipAddressRepo.save(existingIp);
-        return "redirect:/ippools/" + existingIp.getIpPool().getId();
+        return "redirect:/ipaddresses/" + existingIp.getIpPool().getId();
     }
 
     //delete ip address by id
-    @RequestMapping(value = "/deleteip/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteIp(@PathVariable("id") Long id) {
         IpAddress existingIp = ipAddressRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
 
@@ -101,29 +100,29 @@ public class IpAddressController {
 
         ipAddressRepo.delete(existingIp);
         
-        return "redirect:/ippools/" + existingIp.getIpPool().getId();
+        return "redirect:/ipaddresses/" + existingIp.getIpPool().getId();
     }
 
     // RESTful service to get all ip addresses
-    @RequestMapping(value="/ipaddresses", method=RequestMethod.GET)
+    @RequestMapping(value="/api/ipaddresses", method=RequestMethod.GET)
     public @ResponseBody List<IpAddress> getAllIpAddresses() {
         return ipAddressRepo.findAll();
     }
 
     // RESTful service to get an ip address by ID
-    @RequestMapping(value="/ipaddresses/{id}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/ipaddresses/{id}", method=RequestMethod.GET)
     public @ResponseBody IpAddress getIpAddressById(@PathVariable("id") Long id) {
         return ipAddressRepo.findById(id).orElse(null);
     }
 
     // RESTful service to add a new ip address
-    @RequestMapping(value="/ipaddresses/add", method=RequestMethod.POST)
+    @RequestMapping(value="/api/ipaddresses/add", method=RequestMethod.POST)
     public @ResponseBody IpAddress addIpAddress(@RequestBody IpAddress newIpAddress) {
         return ipAddressRepo.save(newIpAddress);
     }
 
     // RESTful service to delete an ip by ID
-    @RequestMapping(value="ipaddresses/delete/{id}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/ipaddresses/delete/{id}", method=RequestMethod.GET)
     public @ResponseBody String deleteIpAddress(@PathVariable("id") Long id) {
         ipAddressRepo.deleteById(id);
         return "IP Address deleted";

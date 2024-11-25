@@ -8,7 +8,7 @@
     <h1>Edit IP Address</h1>
     <div class="container">
         <h2 class="mb-4">Edit IP Address</h2>
-        <form th:action="@{/updateip/{id}(id=${ipAddress.id})}" method="post" th:object="${ipAddress}">
+        <form th:action="@{/ipaddresses/update/{id}(id=${ipAddress.id})}" method="post" th:object="${ipAddress}">
             <input type="hidden" th:value="${ipAddress.id}" name="id" />
             <input type="hidden" name="ipPoolId" th:value="${ipAddress.ipPool.id}" />
             <div class="form-roup">

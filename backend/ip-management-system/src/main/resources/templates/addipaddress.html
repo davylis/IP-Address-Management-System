@@ -8,7 +8,7 @@
     <h1>Add IP Address</h1>
     <div class="container">
         <h2 class="mb-4">Add New IP Address</h2>
-        <form action="#" th:action="@{/saveip}" th:object="${ipAddress}" method="post">
+        <form action="#" th:action="@{/ipaddresses/save}" th:object="${ipAddress}" method="post">
             <input type="hidden" name="ipPoolId" th:value="${ipAddress.ipPool.id}" />
             <div class="form-group">
                <label for="ipAddress">IP Address:</label>
