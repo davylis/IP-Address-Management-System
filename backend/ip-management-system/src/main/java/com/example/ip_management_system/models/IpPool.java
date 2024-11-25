@@ -1,6 +1,8 @@
 package com.example.ip_management_system.models;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,8 +34,8 @@ public class IpPool {
     @Column(nullable = false)
     private String gateway;
 
-    @OneToMany(mappedBy = "ipPool")
-    private List<IpAddress> services;  // One-to-many relationship with services
+    @OneToMany(mappedBy = "ipPool", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IpAddress> services;
 
     @Column(name = "created_at", updatable = false)
     private String createdAt;
@@ -42,9 +44,10 @@ public class IpPool {
     private String updatedAt;
 
 
-    /**
-     * @return Long return the id
-     */
+public IpPool() {
+    this.services = new ArrayList<>();
+}
+
     public Long getId() {
         return id;
     }
@@ -149,6 +152,21 @@ public class IpPool {
      */
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+
+    /**
+     * @return List<IpAddress> return the services
+     */
+    public List<IpAddress> getServices() {
+        return services;
+    }
+
+    /**
+     * @param services the services to set
+     */
+    public void setServices(List<IpAddress> services) {
+        this.services = services;
     }
 
 }

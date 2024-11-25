@@ -11,10 +11,13 @@ import com.example.ip_management_system.repositories.ServiceRepository;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.ip_management_system.models.IpAddress;
 import com.example.ip_management_system.models.Service;
 import com.example.ip_management_system.models.ServiceStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -35,36 +38,49 @@ public class ServiceController {
         List<Service> services = serviceRepo.findByIpAddressId(ipAddressId);
         model.addAttribute("services", services);
         model.addAttribute("ipAddressId", ipAddressId);
+
+        IpAddress ipAddress = ipAddressRepo.findById(ipAddressId).orElseThrow(()->new IllegalArgumentException("Invalid IP Address ID: " + ipAddressId));
+        Long ipPoolId = ipAddress.getIpPool().getId();
+        model.addAttribute("ipPoolId", ipPoolId);
+
         return "services";
     }
 
     //add new service form
-    @RequestMapping(value = "/addservice/{ipAddressId}", method=RequestMethod.GET)
+    @RequestMapping("/add/{ipAddressId}")
     public String addServiceForm(@PathVariable("ipAddressId") Long ipAddressId, Model model) {
         Service service = new Service();
         service.setIpAddress(ipAddressRepo.findById(ipAddressId).orElseThrow(() -> new IllegalArgumentException("Invalid IP Address Id: " + ipAddressId)));
         model.addAttribute("service", service);
+        model.addAttribute("ipAddressId", ipAddressId);
         model.addAttribute("serviceStatusValues", ServiceStatus.values());
         return "addservice";
     }
 
     //save new service
-    @RequestMapping(value="/saveip", method=RequestMethod.POST)
-    public String saveService(@ModelAttribute Service service) {
+    @RequestMapping(value="/save/{ipAddressId}", method=RequestMethod.POST)
+    public String saveService(@PathVariable("ipAddressId") Long ipAddressId, @ModelAttribute Service service) {
+        IpAddress existingIp = ipAddressRepo.findById(ipAddressId).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + ipAddressId));
+        service.setIpAddress(existingIp);
+
         serviceRepo.save(service);
         return "redirect:/services/" + service.getIpAddress().getId();
     }
 
     //edit service
-    @RequestMapping(value = "/editservice/{serviceId}", method=RequestMethod.GET)
+    @RequestMapping(value = "/edit/{serviceId}", method=RequestMethod.GET)
     public String editService(@PathVariable("serviceId") Long id, Model model) {
         Service service = serviceRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
+        if (service.getStatus() == null) {
+            service.setStatus(ServiceStatus.INACTIVE);
+        }
         model.addAttribute("service", service);
+        model.addAttribute("serviceStatusValues", ServiceStatus.values());
         return "editservice";
     }
 
     //update service
-    @RequestMapping(value="/updateservice/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
     public String updateService(@PathVariable("id") Long id, @ModelAttribute Service service) {
         Service exsistingService = serviceRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
         exsistingService.setName(service.getName());
@@ -77,12 +93,12 @@ public class ServiceController {
     }
 
     //delete service
-    @RequestMapping(value = "/deleteip/{id}", method=RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method=RequestMethod.GET)
     public String deleteService(@PathVariable("id") Long id) {
         Service service = serviceRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
         Long ipAddressId = service.getIpAddress().getId();
-        ipAddressRepo.deleteById(id);
-        return "redirect:/services"+ipAddressId;
+        serviceRepo.deleteById(id);
+        return "redirect:/services/" + ipAddressId;
 
     
     }

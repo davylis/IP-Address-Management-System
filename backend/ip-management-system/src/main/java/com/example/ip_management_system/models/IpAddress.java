@@ -2,6 +2,7 @@ package com.example.ip_management_system.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class IpAddress {
     @JoinColumn(name = "ippoolid", nullable = false)
     private IpPool ipPool;
 
-    @OneToMany(mappedBy = "ipAddress")
+    @OneToMany(mappedBy = "ipAddress", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Service> services;
 
     public Long getId() {

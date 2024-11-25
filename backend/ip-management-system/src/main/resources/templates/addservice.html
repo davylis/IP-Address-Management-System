@@ -1,40 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Add Service</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
     <h1>Add Service</h1>
-    <form action="/services/save" method="post">
-        <label for="name">Service Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-
-        <label for="port">Port:</label>
-        <input type="number" id="port" name="port" required>
-        <br>
-
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required>
-        <br>
-
-        <label for="urlLink">URL Link:</label>
-        <input type="url" id="urlLink" name="urlLink" required>
-        <br>
-
-        <label for="status">Status:</label>
-        <select id="status" name="status" required>
-            <option value="ACTIVE">Active</option>
-            <option value="INACTIVE">Inactive</option>
-        </select>
-        <br>
-
-        <label for="ipAddressId">IP Address ID</label>
-        <input type="number" id="ipAddressId" name="ipAddressId" required>
-        <br>
-        
-        <button type="submit">Save Service</button>
+    <div class="container">
+        <h2 class="mt-4">Add New Service</h2>
+        <form action="#" th:action="@{/services/save/{ipAddressId}(ipAddressId=${ipAddressId})}" th:object="${service}" method="post">
+            <input type="hidden" name="ipAddressId" th:value="${service.ipAddress.id}" />
+            <div class="form-group"></div>
+            <label for="Service">Service Name:</label>
+                <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required placeholder="Enter Service Name">
+                 <div style="height: 10px;"></div>
+                 <label for="Service">Description:</label>
+                <input type="text" class="form-control" id="description" name="description" th:field="*{description}" required placeholder="Enter Service Description">
+                <div style="height: 10px;"></div>
+                <label for="Service">Port:</label>
+                <input type="text" class="form-control" id="port" name="port" th:field="*{port}" required placeholder="Enter Port">
+                <div style="height: 10px;"></div>
+                <label for="Service">URL Link:</label>
+                <input type="text" class="form-control" id="urlLink" name="urlLink" th:field="*{urlLink}" required placeholder="Enter a URL">
+                <div style="height: 10px;"></div>
+                <label for="status">Status:</label>
+                <select class="form-control" id="status" name="status">
+                    <option th:each="status : ${T(com.example.ip_management_system.models.ServiceStatus).values()}"
+                            th:value="${status}"
+                            th:text="${status}"
+                            th:selected="${service.status != null and status == service.status}">
+                    </option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </body>
 

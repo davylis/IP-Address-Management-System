@@ -20,7 +20,7 @@ public class Service {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ipaddress_id", nullable = false)
+    @JoinColumn(name = "ipaddress_id", nullable = true)
     private IpAddress ipAddress;
 
     @Column(nullable = false)

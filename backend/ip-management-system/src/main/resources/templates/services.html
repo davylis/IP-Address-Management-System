@@ -7,7 +7,8 @@
     <body>
         <div class="container">
             <h1 class="mt-4 mb-4">Services for IP Address</h1>
-            <a href="/services/add" th:href="@{/services/add}" class="btn btn-primary mb-3">Add New Service</a>
+            <a class="btn btn-danger btn-sm" th:href="@{/services/add/{ipAddressId}(ipAddressId=${ipAddressId})}" >Add New Service</a>
+            <div style="height: 10px;"></div>
             <table class="table table-striped">
         
         <thead>
@@ -28,12 +29,12 @@
                 <td th:text="${service.description}"></td>
                 <td th:text="${service.port}"></td>
                 <td>
-                    <a href="${service.urlLink}" th:text="${service.urlLink != null ? service.urlLink : 'N/A'}" target="_blank"></a>
+                    <a href="${service.urlLink}"></a>
                 </td>
                 <td th:text="${service.status}"></td>
                 <td>
-                    <a href="@{'/services/edit/' + ${service.id}}">Edit</a>
-                    <a href="@{'/services/delete/'+${service.id}}" onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
+                    <a  class="btn btn-danger btn-sm" th:href="@{'/services/edit/' + ${service.id}}">Edit</a>
+                    <a class="btn btn-danger btn-sm" th:href="@{'/services/delete/'+${service.id}}" onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
                 </td>
             </tr>
         </tbody>

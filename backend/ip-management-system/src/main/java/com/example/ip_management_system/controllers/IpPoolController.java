@@ -35,8 +35,22 @@ public class IpPoolController {
    
     //save new ip pool
     @RequestMapping(value="/save", method=RequestMethod.POST)
-    public String save(IpPool ipPool) {
+    public String save(IpPool ipPool, Model model) {
+        System.out.println("IpPool being saved: " + ipPool);
         ipPoolRepo.save(ipPool);
+        return "redirect:/ippoollist";
+    }
+
+    @RequestMapping(value="/updateippool/{id}", method=RequestMethod.POST)
+    public String update(@PathVariable("id") Long id, @ModelAttribute IpPool updatedIpPool, Model model) {
+        IpPool existingPool = ipPoolRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + id));
+
+        existingPool.setName(updatedIpPool.getName());
+        existingPool.setStartIp(updatedIpPool.getStartIp());
+        existingPool.setEndIp(updatedIpPool.getEndIp());
+        existingPool.setDescription(updatedIpPool.getDescription());
+
+        ipPoolRepo.save(existingPool);
         return "redirect:/ippoollist";
     }
     
@@ -48,10 +62,9 @@ public class IpPoolController {
     }
 
     //show edit ip pool form
-    @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+    @RequestMapping(value="/editippool/{id}", method=RequestMethod.GET)
     public String editIpPool(@PathVariable("id") Long id, Model model) {
-        IpPool ipPool = ipPoolRepo.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid IP pool Id"+id));
+        IpPool ipPool = ipPoolRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP pool Id"+id));
             model.addAttribute("ipPool", ipPool);
             return "editippool";
     }

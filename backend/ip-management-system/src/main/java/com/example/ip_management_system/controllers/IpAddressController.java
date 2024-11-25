@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ip_management_system.repositories.IpPoolRepository;
@@ -34,10 +35,13 @@ public class IpAddressController {
     //show ip's for a specific pool
     @RequestMapping(value = "/ippools/{id}", method = RequestMethod.GET)
     public String showIpsInPool(@PathVariable("id") Long id, Model model) {
+
+        IpPool ipPool = ipPoolRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID"));
+
         List<IpAddress> ipAddresses = ipAddressRepo.findByIpPoolId(id);
+
         model.addAttribute("ipAddresses", ipAddresses);
         model.addAttribute("ipPoolId", id);
-        IpPool ipPool = ipPoolRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID"));
         model.addAttribute("ipPool", ipPool);
 
         for (IpAddress ip : ipAddresses){
@@ -60,9 +64,12 @@ public class IpAddressController {
 
     //save new ip address
     @RequestMapping(value = "/saveip", method = RequestMethod.POST)
-    public String saveIp(@ModelAttribute IpAddress ipAddress) {
+    public String saveIp(@ModelAttribute IpAddress ipAddress, @RequestParam Long ipPoolId) {
+        IpPool ipPool = ipPoolRepo.findById(ipPoolId).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + ipPoolId));
+        ipAddress.setIpPool(ipPool);
+
         ipAddressRepo.save(ipAddress);
-        return "redirect:/ippool/" + ipAddress.getIpPool().getId();
+        return "redirect:/ippools/" + ipAddress.getIpPool().getId();
     }
 
     //edit ip address
@@ -77,22 +84,24 @@ public class IpAddressController {
     //update ip address
     @RequestMapping(value = "/updateip/{id}", method = RequestMethod.POST)
     public String updateIp(@PathVariable("id") Long id, @ModelAttribute IpAddress ipAddress) {
-        IpAddress existingIp = ipAddressRepo.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
+        IpAddress existingIp = ipAddressRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
         existingIp.setIp(ipAddress.getIp());
         existingIp.setHostname(ipAddress.getHostname());
         ipAddressRepo.save(existingIp);
-        return "redirect:/ippool/" + existingIp.getIpPool().getId();
+        return "redirect:/ippools/" + existingIp.getIpPool().getId();
     }
 
     //delete ip address by id
     @RequestMapping(value = "/deleteip/{id}", method = RequestMethod.GET)
     public String deleteIp(@PathVariable("id") Long id) {
-        IpAddress ipAddress = ipAddressRepo.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
-        Long ipPoolId = ipAddress.getIpPool().getId();
-        ipAddressRepo.deleteById(id);
-        return "redirect:/ippoollist"+ipPoolId;
+        IpAddress existingIp = ipAddressRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
+
+        List<Service> services = serviceRepo.findByIpAddressId(id);
+        serviceRepo.deleteAll(services);
+
+        ipAddressRepo.delete(existingIp);
+        
+        return "redirect:/ippools/" + existingIp.getIpPool().getId();
     }
 
     // RESTful service to get all ip addresses

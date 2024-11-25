@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit IP Service</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Edit IP Service</h1>
+        <form th:action="@{/services/update/{id}(id=${service.id})}" method="post" th:object="${service}">
+        <input type="hidden" name="id" th:value="${service.id}" />
+            <div class="form-roup">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" th:value="${service.name}" required />
+            </div>
+            <div class="form-roup">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" name="description" th:value="${service.description}" required />
+            </div>
+            <div class="form-group">
+                <label for="port">Port:</label>
+                <input type="text" class="form-control" id="port" name="port" th:value="${service.port}" required />
+            </div>
+            <div class="form-group">
+                <label for="urlLink">Url Link:</label>
+                <input type="text" class="form-control" id="urlLink" name="urlLink" th:value="${service.urlLink}" required />
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select class="form-control" id="status" name="status">
+                    <option th:each="status : ${T(com.example.ip_management_system.models.ServiceStatus).values()}"
+                            th:value="${status}"
+                            th:text="${status}"
+                            th:selected="${service.status != null and status == service.status}">
+                    </option>
+                   </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="@{/ipaddress/{id}(id=${service.ipAddress.id})}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

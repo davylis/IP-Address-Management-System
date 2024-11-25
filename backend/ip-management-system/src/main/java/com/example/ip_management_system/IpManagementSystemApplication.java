@@ -80,6 +80,14 @@ service1.setDescription("HTTP Service");
 service1.setUrlLink("http://192.168.0.10");
 service1.setStatus(ServiceStatus.ACTIVE);
 
+Service service12 = new Service();
+service12.setIpAddress(ip1);
+service12.setPort(8080);
+service12.setName("Web Server 2");
+service12.setDescription("HTTP Service");
+service12.setUrlLink("http://192.168.0.10");
+service12.setStatus(ServiceStatus.ACTIVE);
+
 Service service2 = new Service();
 service2.setIpAddress(ip2);
 service2.setPort(21);
@@ -98,6 +106,7 @@ service3.setStatus(ServiceStatus.INACTIVE);
 
 // Save Services
 serviceRepository.save(service1);
+serviceRepository.save(service12);
 serviceRepository.save(service2);
 serviceRepository.save(service3);
 
