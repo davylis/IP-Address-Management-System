@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RootController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+   @RequestMapping(value = "/", method = RequestMethod.GET)
     public String redirectToIpPools() {
-        return "redirect:/ippools/"; // Ensure this redirects to the right path
-    }
+       return "redirect:/ippools/"; // Ensure this redirects to the right path
+   }
 }

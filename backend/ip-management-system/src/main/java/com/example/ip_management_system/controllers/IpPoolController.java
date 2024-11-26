@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,11 @@ public class IpPoolController {
 
     @Autowired
     private IpPoolRepository ipPoolRepo;
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
     //show all ip pools
     @RequestMapping(value={"", "/"}, method = RequestMethod.GET)
@@ -43,6 +49,7 @@ public class IpPoolController {
     }
 
     @RequestMapping(value="/update/{id}", method=RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String update(@PathVariable("id") Long id, @ModelAttribute IpPool updatedIpPool, Model model) {
         IpPool existingPool = ipPoolRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + id));
 
@@ -57,6 +64,7 @@ public class IpPoolController {
     
     //delete ip pool by id
     @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteIpPool(@PathVariable("id") Long id, Model model) {
         ipPoolRepo.deleteById(id);
         return "redirect:/ippools";
@@ -64,6 +72,7 @@ public class IpPoolController {
 
     //show edit ip pool form
     @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editIpPool(@PathVariable("id") Long id, Model model) {
         IpPool ipPool = ipPoolRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP pool Id"+id));
             model.addAttribute("ipPool", ipPool);

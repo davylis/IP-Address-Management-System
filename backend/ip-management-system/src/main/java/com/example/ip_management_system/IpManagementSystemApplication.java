@@ -11,9 +11,11 @@ import com.example.ip_management_system.models.IpAddress;
 import com.example.ip_management_system.models.IpPool;
 import com.example.ip_management_system.models.Service;
 import com.example.ip_management_system.models.ServiceStatus;
+import com.example.ip_management_system.models.User;
 import com.example.ip_management_system.repositories.IpAddressRepository;
 import com.example.ip_management_system.repositories.IpPoolRepository;
 import com.example.ip_management_system.repositories.ServiceRepository;
+import com.example.ip_management_system.repositories.UserRepository;
 
 @SpringBootApplication
 public class IpManagementSystemApplication {
@@ -26,7 +28,7 @@ public class IpManagementSystemApplication {
 	@Bean
                                  
 		CommandLineRunner initDatabase(IpPoolRepository ipPoolRepository, IpAddressRepository ipAddressRepository, 
-		ServiceRepository serviceRepository) {
+		ServiceRepository serviceRepository, UserRepository userRepository) {
 return args -> {
 // Create IpPools
 IpPool ipPool1 = new IpPool();
@@ -110,6 +112,16 @@ serviceRepository.save(service12);
 serviceRepository.save(service2);
 serviceRepository.save(service3);
 
+//create users
+User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "user@email.fi",  "ROLE_USER"
+);
+User user2 = new User("admin", "{bcrypt}$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "admin@email.fi", "ROLE_ADMIN"
+);
+
+//save users
+userRepository.save(user1);
+userRepository.save(user2);
+
 // Fetch and log all records
 log.info("fetch all IP Pools");
 for (IpPool ipPool : ipPoolRepository.findAll()) {
@@ -125,6 +137,7 @@ log.info("fetch all Services");
 for (Service service : serviceRepository.findAll()) {
 log.info(service.toString());
 }
+
 };
         };
 	}
