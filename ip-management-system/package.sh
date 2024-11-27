@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define variables
-PROJECT_DIR="$(git rev-parse --show-toplevel)/backend/ip-management-system"
+PROJECT_DIR="$(git rev-parse --show-toplevel)/ip-management-system"
 TARGET_DIR="/var/lib/ipms"
 JAR_NAME="ip-management-system-0.0.1-SNAPSHOT.jar"
 
