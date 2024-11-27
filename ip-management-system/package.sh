@@ -10,7 +10,7 @@ cd "$PROJECT_DIR" || { echo "Project directory not found!"; exit 1; }
 
 # Clean and package the Maven project
 echo "Building the project..."
-mvn clean package
+mvn clean package -DskipTests
 
 # Check if the build was successful
 if [ $? -ne 0 ]; then

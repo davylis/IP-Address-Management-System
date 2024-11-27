@@ -5,9 +5,9 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'database'
-      MYSQL_USER: 'davylis'
-      MYSQL_PASSWORD: '${USER_PASSWORD:-password}'
-      MYSQL_ROOT_PASSWORD: '${ROOT_PASSWORD:-password}'
+      MYSQL_USER: '${DB_USERNAME:-user}'
+      MYSQL_PASSWORD: '${DB_PASSWORD:-password}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD:-password}'
     ports:
       - '3306:3306'
     volumes:

@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import com.example.ip_management_system.models.IpAddress;
 import com.example.ip_management_system.models.IpPool;
 import com.example.ip_management_system.models.Service;
@@ -22,6 +23,12 @@ public class IpManagementSystemApplication {
 	private static final Logger log = LoggerFactory.getLogger(IpManagementSystemApplication.class);
 
 	public static void main(String[] args) {
+		Dotenv dotenv = Dotenv.load();
+		System.setProperty("server.port", dotenv.get("WEB_APP_PORT", "8080"));
+		System.setProperty("spring.datasource.username", dotenv.get("DB_USERNAME"));
+		System.setProperty("spring.datasource.password", dotenv.get("DB_PASSWORD"));
+		System.setProperty("spring.datasource.url", dotenv.get("DB_URL"));
+
 		SpringApplication.run(IpManagementSystemApplication.class, args);
 	}
 
