@@ -1,5 +1,7 @@
 # IP-Address-Management-System
 
+![IP Pools main screen](./assets/ippools.png)
+
 ## Prerequisites
 
 Before running the application, ensure that you have the following software installed on your system:
