@@ -38,4 +38,6 @@ else
 fi
 
 echo "Packaging and deployment completed successfully."
-
+echo "Restarting the service"
+sudo systemctl restart ipms-web-app.service
+echo "Service restarted"
