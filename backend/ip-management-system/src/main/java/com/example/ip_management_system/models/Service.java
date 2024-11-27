@@ -39,7 +39,6 @@ public class Service {
     @Column(nullable = false)
     private ServiceStatus status;
 
-
     /**
      * @return Long return the id
      */

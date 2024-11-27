@@ -29,48 +29,52 @@ public class ServiceController {
     @Autowired
     private IpAddressRepository ipAddressRepo;
 
-    //show services for a specific ip address
+    // show services for a specific ip address
     @RequestMapping("/{ipAddressId}")
     public String showServicesForIp(@PathVariable("ipAddressId") Long ipAddressId, Model model) {
         List<Service> services = serviceRepo.findByIpAddressId(ipAddressId);
         model.addAttribute("services", services);
         model.addAttribute("ipAddressId", ipAddressId);
 
-        IpAddress ipAddress = ipAddressRepo.findById(ipAddressId).orElseThrow(()->new IllegalArgumentException("Invalid IP Address ID: " + ipAddressId));
+        IpAddress ipAddress = ipAddressRepo.findById(ipAddressId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid IP Address ID: " + ipAddressId));
         Long ipPoolId = ipAddress.getIpPool().getId();
         model.addAttribute("ipPoolId", ipPoolId);
 
         return "services";
     }
 
-    //add new service form
+    // add new service form
     @RequestMapping("/add/{ipAddressId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String addServiceForm(@PathVariable("ipAddressId") Long ipAddressId, Model model) {
         Service service = new Service();
-        service.setIpAddress(ipAddressRepo.findById(ipAddressId).orElseThrow(() -> new IllegalArgumentException("Invalid IP Address Id: " + ipAddressId)));
+        service.setIpAddress(ipAddressRepo.findById(ipAddressId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid IP Address Id: " + ipAddressId)));
         model.addAttribute("service", service);
         model.addAttribute("ipAddressId", ipAddressId);
         model.addAttribute("serviceStatusValues", ServiceStatus.values());
         return "addservice";
     }
 
-    //save new service
-    @RequestMapping(value="/save/{ipAddressId}", method=RequestMethod.POST)
+    // save new service
+    @RequestMapping(value = "/save/{ipAddressId}", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ADMIN')")
     public String saveService(@PathVariable("ipAddressId") Long ipAddressId, @ModelAttribute Service service) {
-        IpAddress existingIp = ipAddressRepo.findById(ipAddressId).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + ipAddressId));
+        IpAddress existingIp = ipAddressRepo.findById(ipAddressId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + ipAddressId));
         service.setIpAddress(existingIp);
 
         serviceRepo.save(service);
         return "redirect:/services/" + service.getIpAddress().getId();
     }
 
-    //edit service
-    @RequestMapping(value = "/edit/{serviceId}", method=RequestMethod.GET)
+    // edit service
+    @RequestMapping(value = "/edit/{serviceId}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
     public String editService(@PathVariable("serviceId") Long id, Model model) {
-        Service service = serviceRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
+        Service service = serviceRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
         if (service.getStatus() == null) {
             service.setStatus(ServiceStatus.INACTIVE);
         }
@@ -79,11 +83,12 @@ public class ServiceController {
         return "editservice";
     }
 
-    //update service
-    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
+    // update service
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ADMIN')")
     public String updateService(@PathVariable("id") Long id, @ModelAttribute Service service) {
-        Service exsistingService = serviceRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
+        Service exsistingService = serviceRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
         exsistingService.setName(service.getName());
         exsistingService.setPort(service.getPort());
         exsistingService.setDescription(service.getDescription());
@@ -93,15 +98,15 @@ public class ServiceController {
         return "redirect:/services/" + exsistingService.getIpAddress().getId();
     }
 
-    //delete service
-    @RequestMapping(value = "/delete/{id}", method=RequestMethod.GET)
+    // delete service
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteService(@PathVariable("id") Long id) {
-        Service service = serviceRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
+        Service service = serviceRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
         Long ipAddressId = service.getIpAddress().getId();
         serviceRepo.deleteById(id);
         return "redirect:/services/" + ipAddressId;
 
-    
     }
 }

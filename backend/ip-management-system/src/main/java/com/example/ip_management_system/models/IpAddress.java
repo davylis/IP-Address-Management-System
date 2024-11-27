@@ -1,4 +1,5 @@
 package com.example.ip_management_system.models;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -98,7 +99,6 @@ public class IpAddress {
     public void setServices(List<Service> services) {
         this.services = services;
     }
-
 
     public int getPort() {
         return port;

@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Add Service</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
     <h1>Add Service</h1>
     <div class="container">
         <h2 class="mt-4">Add New Service</h2>
-        <form action="#" th:action="@{/services/save/{ipAddressId}(ipAddressId=${ipAddressId})}" th:object="${service}" method="post">
+        <form action="#" th:action="@{/services/save/{ipAddressId}(ipAddressId=${ipAddressId})}" th:object="${service}"
+            method="post">
             <input type="hidden" name="ipAddressId" th:value="${service.ipAddress.id}" />
             <div class="form-group"></div>
             <label for="Service">Service Name:</label>
-                <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required placeholder="Enter Service Name">
-                 <div style="height: 10px;"></div>
-                 <label for="Service">Description:</label>
-                <input type="text" class="form-control" id="description" name="description" th:field="*{description}" required placeholder="Enter Service Description">
-                <div style="height: 10px;"></div>
-                <label for="Service">Port:</label>
-                <input type="text" class="form-control" id="port" name="port" th:field="*{port}" required placeholder="Enter Port">
-                <div style="height: 10px;"></div>
-                <label for="Service">URL Link:</label>
-                <input type="text" class="form-control" id="urlLink" name="urlLink" th:field="*{urlLink}" required placeholder="Enter a URL">
-                <div style="height: 10px;"></div>
-                <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status">
-                    <option th:each="status : ${T(com.example.ip_management_system.models.ServiceStatus).values()}"
-                            th:value="${status}"
-                            th:text="${status}"
-                            th:selected="${service.status != null and status == service.status}">
-                    </option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required
+                placeholder="Enter Service Name">
+            <div style="height: 10px;"></div>
+            <label for="Service">Description:</label>
+            <input type="text" class="form-control" id="description" name="description" th:field="*{description}"
+                required placeholder="Enter Service Description">
+            <div style="height: 10px;"></div>
+            <label for="Service">Port:</label>
+            <input type="text" class="form-control" id="port" name="port" th:field="*{port}" required
+                placeholder="Enter Port">
+            <div style="height: 10px;"></div>
+            <label for="Service">URL Link:</label>
+            <input type="text" class="form-control" id="urlLink" name="urlLink" th:field="*{urlLink}" required
+                placeholder="Enter a URL">
+            <div style="height: 10px;"></div>
+            <label for="status">Status:</label>
+            <select class="form-control" id="status" name="status">
+                <option th:each="status : ${T(com.example.ip_management_system.models.ServiceStatus).values()}"
+                    th:value="${status}" th:text="${status}"
+                    th:selected="${service.status != null and status == service.status}">
+                </option>
+            </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </body>
 

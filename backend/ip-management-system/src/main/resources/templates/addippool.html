@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Add IP pool</title>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
+
 <body>
     <h1>Add IP Pool</h1>
     <div class="container">
@@ -11,19 +13,24 @@
         <form action="#" th:action="@{/ippools/save}" th:object="${ipPool}" method="post">
             <div class="form-group">
                 <label for="ipPool">IP Pool Name:</label>
-                <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required placeholder="Enter name">
-                 <div style="height: 10px;"></div>
-                 <label for="ipPool">Description</label>
-                <input type="text" class="form-control" id="description" name="description" th:field="*{description}" required placeholder="Enter description">
+                <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required
+                    placeholder="Enter name">
+                <div style="height: 10px;"></div>
+                <label for="ipPool">Description</label>
+                <input type="text" class="form-control" id="description" name="description" th:field="*{description}"
+                    required placeholder="Enter description">
                 <div style="height: 10px;"></div>
                 <label for="ipPool">Start IP</label>
-                <input type="text" class="form-control" id="startIp" name="startIp" th:field="*{startIp}" required placeholder="Enter Start IP">
+                <input type="text" class="form-control" id="startIp" name="startIp" th:field="*{startIp}" required
+                    placeholder="Enter Start IP">
                 <div style="height: 10px;"></div>
                 <label for="ipPool">End IP</label>
-                <input type="text" class="form-control" id="endIp" name="endIp" th:field="*{endIp}" required placeholder="Enter End IP">
+                <input type="text" class="form-control" id="endIp" name="endIp" th:field="*{endIp}" required
+                    placeholder="Enter End IP">
                 <div style="height: 10px;"></div>
                 <label for="ipPool">Gateway</label>
-                <input type="text" class="form-control" id="gateway" name="gateway" th:field="*{gateway}" required placeholder="Enter Gateway">
+                <input type="text" class="form-control" id="gateway" name="gateway" th:field="*{gateway}" required
+                    placeholder="Enter Gateway">
                 <div style="height: 10px;"></div>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
@@ -31,4 +38,5 @@
     </div>
 
 </body>
+
 </html>

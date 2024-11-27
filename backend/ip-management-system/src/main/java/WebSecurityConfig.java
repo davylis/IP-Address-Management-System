@@ -25,28 +25,28 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                                        .requestMatchers( "/css/**", "/login").permitAll()
-                                        .anyRequest().authenticated()) //require authentication
-                                        .formLogin(formlogin -> formlogin
-                                        .loginPage("/login")
-                                        .defaultSuccessUrl("/ippools", true)
-                                        .permitAll())//allow all to see login page
-                                    .logout(logout -> logout
-                                                .permitAll()); //allow everyone to see logout page
-                                            return http.build();
+                .requestMatchers("/css/**", "/login").permitAll()
+                .anyRequest().authenticated()) // require authentication
+                .formLogin(formlogin -> formlogin
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/ippools", true)
+                        .permitAll())// allow all to see login page
+                .logout(logout -> logout
+                        .permitAll()); // allow everyone to see logout page
+        return http.build();
 
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
- 
+
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder());
-     
+
     }
-    
+
 }

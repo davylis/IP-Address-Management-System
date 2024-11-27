@@ -9,6 +9,6 @@ import com.example.ip_management_system.models.Service;
 
 public interface ServiceRepository extends JpaRepository<Service, Long> {
     List<Service> findByIpAddressId(Long ipAddressId);
+
     List<Service> findByIpAddress(IpAddress ipAddress);
 }
-

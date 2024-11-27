@@ -1,4 +1,5 @@
 package com.example.ip_management_system.models;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,16 +27,17 @@ public class User {
     @Column(name = "role", nullable = false)
     private String role;
 
-    public User(){}
-
-    public User(String username, String passwordHash, String email, String role){
-        super();
-		this.username = username;
-        this.email = email;
-		this.passwordHash = passwordHash;
-		this.role = role;
+    public User() {
     }
-    
+
+    public User(String username, String passwordHash, String email, String role) {
+        super();
+        this.username = username;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.role = role;
+    }
+
     /**
      * @return Long return the id
      */

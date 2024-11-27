@@ -1,61 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>IP Pool List</title>
-   <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
+
 <body>
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4"></div>
         <div class="row">
             <div class="col-md-4">
-    <h1>IP Pools</h1>
-</div>
-<div class="col-md-4">
-    <h3>Welcome <span sec:authentication="name"></span>! </h3>
-</div>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out" class="btn btn-sm btn-secondary float-end mt-3" />
-</form>
-</div>
-<div sec:authorize="hasRole('ADMIN')">
-        <a class="btn btn-primary" href="/ippools/add">Add New IP Pool</a>
-        <div style="height: 10px;"></div>
+                <h1>IP Pools</h1>
+            </div>
+            <div class="col-md-4">
+                <h3>Welcome <span sec:authentication="name"></span>! </h3>
+            </div>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out" class="btn btn-sm btn-secondary float-end mt-3" />
+            </form>
+        </div>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a class="btn btn-primary" href="/ippools/add">Add New IP Pool</a>
+            <div style="height: 10px;"></div>
 
-</div>
+        </div>
 
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Start IP</th>
-                <th>End IP</th>
-                <th>Gateway</th>
-                <th>Actions</th>
-                <th sec:authorize="hasRole('ADMIN')"> </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="ipPool : ${ippools}">
-                <td th:text="${ipPool.id}"></td>
-                <td th:text="${ipPool.name}"></td>
-                <td th:text="${ipPool.description}"></td>
-                <td th:text="${ipPool.startIp}"></td>
-                <td th:text="${ipPool.endIp}"></td>
-                <td th:text="${ipPool.gateway}"></td>
-                <td>
-                    <a class="btn btn-info btn-sm" th:href="@{/ipaddresses/{id}(id=${ipPool.id})}">View IPs</a>
-                </td>
-                <td sec:authorize="hasRole('ADMIN')">
-                    <a class="btn btn-info btn-sm" th:href="@{/ippools/edit/{id}(id=${ipPool.id})}">Edit</a> 
-                    <a class="btn btn-info btn-sm" th:href="@{/ippools/delete/{id}(id=${ipPool.id})}" onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
-                </td>
-            </tr>
-        </tbody>
-        
-    </table>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Start IP</th>
+                    <th>End IP</th>
+                    <th>Gateway</th>
+                    <th>Actions</th>
+                    <th sec:authorize="hasRole('ADMIN')"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ipPool : ${ippools}">
+                    <td th:text="${ipPool.id}"></td>
+                    <td th:text="${ipPool.name}"></td>
+                    <td th:text="${ipPool.description}"></td>
+                    <td th:text="${ipPool.startIp}"></td>
+                    <td th:text="${ipPool.endIp}"></td>
+                    <td th:text="${ipPool.gateway}"></td>
+                    <td>
+                        <a class="btn btn-info btn-sm" th:href="@{/ipaddresses/{id}(id=${ipPool.id})}">View IPs</a>
+                    </td>
+                    <td sec:authorize="hasRole('ADMIN')">
+                        <a class="btn btn-info btn-sm" th:href="@{/ippools/edit/{id}(id=${ipPool.id})}">Edit</a>
+                        <a class="btn btn-info btn-sm" th:href="@{/ippools/delete/{id}(id=${ipPool.id})}"
+                            onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
 </body>
+
 </html>

@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Edit IP Pool</title>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
+
 <body>
     <div class="container">
         <h1 class="mt-4">Edit IP Pool</h1>
         <form th:action="@{/ippools/update/{id}(id=${ipPool.id})}" th:object="${ipPool}" method="post">
-        <input type="hidden" name="id" th:value="${ipPool.id}" />
+            <input type="hidden" name="id" th:value="${ipPool.id}" />
             <div class="form-roup">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" name="name" th:value="${ipPool.name}" required />
             </div>
             <div class="form-roup">
                 <label for="description">Description:</label>
-                <input type="text" class="form-control" id="description" name="description" th:value="${ipPool.description}" required />
+                <input type="text" class="form-control" id="description" name="description"
+                    th:value="${ipPool.description}" required />
             </div>
             <div class="form-group">
                 <label for="startIp">Start IP:</label>
-                <input type="text" class="form-control" id="startIp" name="startIp" th:value="${ipPool.startIp}" required />
+                <input type="text" class="form-control" id="startIp" name="startIp" th:value="${ipPool.startIp}"
+                    required />
             </div>
             <div class="form-group">
                 <label for="endIp">End IP:</label>
@@ -27,7 +31,8 @@
             </div>
             <div class="form-group">
                 <label for="gateway">Gateway:</label>
-                <input type="text" class="form-control" id="gateway" name="gateway" th:value="${ipPool.gateway}" required />
+                <input type="text" class="form-control" id="gateway" name="gateway" th:value="${ipPool.gateway}"
+                    required />
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -35,4 +40,5 @@
         </form>
     </div>
 </body>
+
 </html>

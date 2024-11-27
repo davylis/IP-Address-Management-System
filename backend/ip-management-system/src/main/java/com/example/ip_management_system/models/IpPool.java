@@ -1,4 +1,5 @@
 package com.example.ip_management_system.models;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +44,9 @@ public class IpPool {
     @Column(name = "updated_at")
     private String updatedAt;
 
-
-public IpPool() {
-    this.services = new ArrayList<>();
-}
+    public IpPool() {
+        this.services = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
@@ -153,7 +153,6 @@ public IpPool() {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
     /**
      * @return List<IpAddress> return the services

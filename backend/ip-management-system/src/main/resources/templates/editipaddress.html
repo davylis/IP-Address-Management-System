@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Edit Service</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
     <h1>Edit IP Address</h1>
     <div class="container">
@@ -16,11 +18,13 @@
                 <input type="text" id="ip" name="ip" class="form-control" th:value="${ipAddress.ip}" required />
                 <div style="height: 10px;"></div>
                 <label for="hostname">Hostname:</label>
-                <input type="text" id="hostname" name="hostname" class="form-control" th:value="${ipAddress.hostname}" required />
+                <input type="text" id="hostname" name="hostname" class="form-control" th:value="${ipAddress.hostname}"
+                    required />
                 <div style="height: 20px;"></div>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
 </body>
+
 </html>
