@@ -2,6 +2,7 @@ package com.example.ip_management_system.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +54,7 @@ public class IpAddressController {
 
     //add new ip address to a pool
     @RequestMapping("/add/{ipPoolId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addIpForm(@PathVariable("ipPoolId") Long ipPoolId, Model model) {
         IpAddress ipAddress = new IpAddress();
         ipAddress.setIpPool(ipPoolRepo.findById(ipPoolId).orElseThrow());
@@ -63,6 +65,7 @@ public class IpAddressController {
 
     //save new ip address
     @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveIp(@ModelAttribute IpAddress ipAddress, @RequestParam Long ipPoolId) {
         IpPool ipPool = ipPoolRepo.findById(ipPoolId).orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + ipPoolId));
         ipAddress.setIpPool(ipPool);
@@ -73,6 +76,7 @@ public class IpAddressController {
 
     //edit ip address
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editIpForm(@PathVariable("id") Long id, Model model) {
         IpAddress ipAddress = ipAddressRepo.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
@@ -82,6 +86,7 @@ public class IpAddressController {
 
     //update ip address
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String updateIp(@PathVariable("id") Long id, @ModelAttribute IpAddress ipAddress) {
         IpAddress existingIp = ipAddressRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
         existingIp.setIp(ipAddress.getIp());
@@ -92,6 +97,7 @@ public class IpAddressController {
 
     //delete ip address by id
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteIp(@PathVariable("id") Long id) {
         IpAddress existingIp = ipAddressRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid IP address Id: " + id));
 

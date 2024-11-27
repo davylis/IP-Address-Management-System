@@ -35,12 +35,14 @@ public class IpPoolController {
  
     //show add ip pool form
    @RequestMapping(value ="/add", method = RequestMethod.GET)
+   @PreAuthorize("hasAuthority('ADMIN')")
    public String addIpPoolForm(Model model) {
         model.addAttribute("ipPool", new IpPool());
        return "addippool";
    }
    
     //save new ip pool
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value="/save", method=RequestMethod.POST)
     public String save(IpPool ipPool, Model model) {
         System.out.println("IpPool being saved: " + ipPool);
