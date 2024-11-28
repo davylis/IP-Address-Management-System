@@ -42,21 +42,9 @@ The deployment process consists of two main phases:
 
 ## 1. Database Setup
 
-The database will run in a Docker container on port 3306. Before starting the container, you must source the `.env` file to ensure that the environment variables are available for the Docker Compose configuration.
-
-### Source the Environment Variables
-
-Run the following command in your terminal:
-
-```bash
-source .env
-```
-
-This step is crucial because the Docker Compose file will use the environment variables to set the database credentials, which are also required by the application.
-
 ## Start the Database Container
 
-To deploy the database, execute the following command in your terminal:
+To deploy the database, navigate to the `ip-management-system` folder and execute the following command in your terminal:
 
 ```bash
 docker-compose -f mysqldb.yaml up -d
@@ -70,7 +58,7 @@ Once the database is up and running, you can deploy the application and connect 
 
 ### Build the Application
 
-Navigate to the `ip-management-system` folder and run the following command to build the application:
+In the same folder run the following command to build the application:
 
 ```bash
 mvn clean package -DskipTests
