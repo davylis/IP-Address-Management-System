@@ -3,6 +3,8 @@ package com.example.ip_management_system.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +37,7 @@ public class IpPool {
     @Column(nullable = false)
     private String gateway;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "ipPool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<IpAddress> services;
 

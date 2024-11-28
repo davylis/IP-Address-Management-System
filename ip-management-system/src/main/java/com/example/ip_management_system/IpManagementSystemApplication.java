@@ -25,9 +25,9 @@ public class IpManagementSystemApplication {
 	public static void main(String[] args) {
 		Dotenv dotenv = Dotenv.load();
 		System.setProperty("server.port", dotenv.get("WEB_APP_PORT", "8080"));
-		System.setProperty("spring.datasource.username", dotenv.get("DB_USERNAME"));
-		System.setProperty("spring.datasource.password", dotenv.get("DB_PASSWORD"));
-		System.setProperty("spring.datasource.url", dotenv.get("DB_URL"));
+		//System.setProperty("spring.datasource.username", dotenv.get("DB_USERNAME"));
+		//System.setProperty("spring.datasource.password", dotenv.get("DB_PASSWORD"));
+		//System.setProperty("spring.datasource.url", dotenv.get("DB_URL"));
 
 		SpringApplication.run(IpManagementSystemApplication.class, args);
 	}
