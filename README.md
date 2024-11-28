@@ -1,12 +1,16 @@
 # IP-Address-Management-System
 
-##IP Pools Main Page
+## IP Pools Main Page
 
 ![IP Pools main screen](./assets/ippools.png)
 
-##IP Addresses Page
+## IP Addresses Page
 
-##IP Services Page
+![IP Addresses screen](./assets/ipaddresses.png)
+
+## IP Services Page
+
+![IP Addresses screen](./assets/ipservices.png)
 
 ## Prerequisites
 
