@@ -25,14 +25,14 @@ public class IpPoolController {
     }
 
     // show all ip pools
-    @RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+    @GetMapping({ "", "/" })
     public String getIpPools(Model model) {
         model.addAttribute("ippools", ipPoolRepo.findAll());
         return "ippoollist";
     }
 
     // show add ip pool form
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @GetMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String addIpPoolForm(Model model) {
         model.addAttribute("ipPool", new IpPool());
@@ -41,16 +41,16 @@ public class IpPoolController {
 
     // save new ip pool
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping("/save")
     public String save(IpPool ipPool, Model model) {
         System.out.println("IpPool being saved: " + ipPool);
         ipPoolRepo.save(ipPool);
         return "redirect:/ippools/";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @PostMapping("/update/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String update(@PathVariable("id") Long id, @ModelAttribute IpPool updatedIpPool, Model model) {
+    public String update(@PathVariable Long id, @ModelAttribute IpPool updatedIpPool, Model model) {
         IpPool existingPool = ipPoolRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + id));
 
@@ -64,17 +64,17 @@ public class IpPoolController {
     }
 
     // delete ip pool by id
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String deleteIpPool(@PathVariable("id") Long id, Model model) {
+    public String deleteIpPool(@PathVariable Long id, Model model) {
         ipPoolRepo.deleteById(id);
         return "redirect:/ippools";
     }
 
     // show edit ip pool form
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @GetMapping("/edit/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String editIpPool(@PathVariable("id") Long id, Model model) {
+    public String editIpPool(@PathVariable Long id, Model model) {
         IpPool ipPool = ipPoolRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid IP pool Id" + id));
         model.addAttribute("ipPool", ipPool);
@@ -82,27 +82,27 @@ public class IpPoolController {
     }
 
     // RESTful service to get all ip pools
-    @RequestMapping(value = "/api/ippools", method = RequestMethod.GET)
+    @GetMapping("/api/ippools")
     public @ResponseBody List<IpPool> ipPoolListRest() {
         return ipPoolRepo.findAll();
     }
 
     // RESTful service to get an ip pool by id
-    @RequestMapping(value = "/api/ippool/{id}", method = RequestMethod.GET)
-    public @ResponseBody IpPool findIpPoolRest(@PathVariable("id") Long id) {
+    @GetMapping("/api/ippool/{id}")
+    public @ResponseBody IpPool findIpPoolRest(@PathVariable Long id) {
         Optional<IpPool> ipPool = ipPoolRepo.findById(id);
         return ipPool.orElse(null);
     }
 
     // RESTful service to add a new ip pool
-    @RequestMapping(value = "/api/ippool/add", method = RequestMethod.POST)
+    @PostMapping("/api/ippool/add")
     public @ResponseBody IpPool addIpPool(@RequestBody IpPool newIpPool) {
         return ipPoolRepo.save(newIpPool);
     }
 
     // RESTful service to delete an ip pool by id
-    @RequestMapping(value = "/api/ippool/delete/{id}", method = RequestMethod.GET)
-    public @ResponseBody String deleteIpPoolRest(@PathVariable("id") Long id) {
+    @GetMapping("/api/ippool/delete/{id}")
+    public @ResponseBody String deleteIpPoolRest(@PathVariable Long id) {
         ipPoolRepo.deleteById(id);
         return "IP Pool deleted";
     }

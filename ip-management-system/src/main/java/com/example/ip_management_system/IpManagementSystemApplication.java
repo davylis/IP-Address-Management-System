@@ -110,21 +110,21 @@ public class IpManagementSystemApplication {
 			User user2 = new User("admin", "{bcrypt}$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C",
 					"admin@email.fi", "ROLE_ADMIN");
 
-			// // Save ipPools
-			// ipPoolRepository.save(ipPool1);
-			// ipPoolRepository.save(ipPool2);
-			// // Save ipAddresses
-			// ipAddressRepository.save(ip1);
-			// ipAddressRepository.save(ip2);
-			// ipAddressRepository.save(ip3);
-			// // Save Services
-			// serviceRepository.save(service1);
-			// serviceRepository.save(service12);
-			// serviceRepository.save(service2);
-			// serviceRepository.save(service3);
-			// // Save Users
-			// userRepository.save(user1);
-			// userRepository.save(user2);
+			 // Save ipPools
+			 ipPoolRepository.save(ipPool1);
+			 ipPoolRepository.save(ipPool2);
+			 // Save ipAddresses
+			 ipAddressRepository.save(ip1);
+			 ipAddressRepository.save(ip2);
+			 ipAddressRepository.save(ip3);
+			 // Save Services
+			 serviceRepository.save(service1);
+			 serviceRepository.save(service12);
+			 serviceRepository.save(service2);
+			 serviceRepository.save(service3);
+			 // Save Users
+			 userRepository.save(user1);
+			 userRepository.save(user2);
 
 			// Fetch and log all records
 			log.info("fetch all IP Pools");

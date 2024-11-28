@@ -8,16 +8,11 @@ import org.springframework.stereotype.Controller;
 
 import com.example.ip_management_system.repositories.IpAddressRepository;
 import com.example.ip_management_system.repositories.ServiceRepository;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import com.example.ip_management_system.models.IpAddress;
 import com.example.ip_management_system.models.Service;
 import com.example.ip_management_system.models.ServiceStatus;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/services")
@@ -31,7 +26,7 @@ public class ServiceController {
 
     // show services for a specific ip address
     @RequestMapping("/{ipAddressId}")
-    public String showServicesForIp(@PathVariable("ipAddressId") Long ipAddressId, Model model) {
+    public String showServicesForIp(@PathVariable Long ipAddressId, Model model) {
         List<Service> services = serviceRepo.findByIpAddressId(ipAddressId);
         model.addAttribute("services", services);
         model.addAttribute("ipAddressId", ipAddressId);
@@ -47,7 +42,7 @@ public class ServiceController {
     // add new service form
     @RequestMapping("/add/{ipAddressId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String addServiceForm(@PathVariable("ipAddressId") Long ipAddressId, Model model) {
+    public String addServiceForm(@PathVariable Long ipAddressId, Model model) {
         Service service = new Service();
         service.setIpAddress(ipAddressRepo.findById(ipAddressId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid IP Address Id: " + ipAddressId)));
@@ -58,9 +53,9 @@ public class ServiceController {
     }
 
     // save new service
-    @RequestMapping(value = "/save/{ipAddressId}", method = RequestMethod.POST)
+    @PostMapping("/save/{ipAddressId}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String saveService(@PathVariable("ipAddressId") Long ipAddressId, @ModelAttribute Service service) {
+    public String saveService(@PathVariable Long ipAddressId, @ModelAttribute Service service) {
         IpAddress existingIp = ipAddressRepo.findById(ipAddressId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid IP Pool ID: " + ipAddressId));
         service.setIpAddress(existingIp);
@@ -70,7 +65,7 @@ public class ServiceController {
     }
 
     // edit service
-    @RequestMapping(value = "/edit/{serviceId}", method = RequestMethod.GET)
+    @GetMapping("/edit/{serviceId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String editService(@PathVariable("serviceId") Long id, Model model) {
         Service service = serviceRepo.findById(id)
@@ -84,9 +79,9 @@ public class ServiceController {
     }
 
     // update service
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @PostMapping("/update/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String updateService(@PathVariable("id") Long id, @ModelAttribute Service service) {
+    public String updateService(@PathVariable Long id, @ModelAttribute Service service) {
         Service exsistingService = serviceRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
         exsistingService.setName(service.getName());
@@ -99,9 +94,9 @@ public class ServiceController {
     }
 
     // delete service
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String deleteService(@PathVariable("id") Long id) {
+    public String deleteService(@PathVariable Long id) {
         Service service = serviceRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Service Id: " + id));
         Long ipAddressId = service.getIpAddress().getId();
