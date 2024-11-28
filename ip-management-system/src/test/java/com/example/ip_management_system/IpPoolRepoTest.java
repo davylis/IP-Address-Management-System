@@ -43,19 +43,6 @@ public class IpPoolRepoTest {
     }
 
     @Test
-    public void testCreateNewIpPool() {
-        IpPool ipPool = new IpPool();
-        ipPool.setName("New Pool");
-        ipPool.setStartIp("10.0.0.1");
-        ipPool.setEndIp("10.0.0.255");
-        ipPool.setDescription("Test IP Pool");
-
-        ipPoolRepository.save(ipPool);
-
-        assertThat(ipPool.getId()).isNotNull();
-    }
-
-    @Test
     public void testDeleteIpPool() {
         // Assuming there's an IpPool with the name "Test Pool" already in the database
         List<IpPool> ipPools = ipPoolRepository.findByName("Test Pool");

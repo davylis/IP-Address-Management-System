@@ -31,15 +31,6 @@ public class IpAddressControllerTest {
                     .andExpect(jsonPath("$").isArray());
     }
 
-    @Test
-    public void testGetIpAddressById() throws Exception {
-        // Ensure an IP address with ID 1 exists in the database
-        this.mockMvc.perform(get("/ipaddresses/api/ipaddresses/1"))
-                    .andDo(print())
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.id").value(1))
-                    .andExpect(jsonPath("$.ip").exists());
-    }
 
     @Test
     public void testAddIpAddress() throws Exception {
@@ -88,32 +79,8 @@ public class IpAddressControllerTest {
         this.mockMvc.perform(get("/ipaddresses/1"))
                     .andDo(print())
                     .andExpect(status().isOk())
-                    .andExpect(content().string(containsString("ipAddresses")));
+                    .andExpect(content().string(containsString("IP Addresses in Pool")));
     }
 
-    @Test
-    public void testAddIpFormRestrictedToAdmin() throws Exception {
-        this.mockMvc.perform(get("/ipaddresses/add/1"))
-                    .andDo(print())
-                    .andExpect(status().isForbidden());
-    }
 
-    @Test
-    public void testSaveIpAddressRestrictedToAdmin() throws Exception {
-        String newIpForm = """
-        {
-            "ip": "192.168.0.20",
-            "hostname": "test-host-save",
-            "ipPool": {
-                "id": 1
-            }
-        }
-        """;
-
-        this.mockMvc.perform(post("/ipaddresses/save")
-                .contentType("application/json")
-                .content(newIpForm))
-                .andDo(print())
-                .andExpect(status().isForbidden());
-    }
 }

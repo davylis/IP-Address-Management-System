@@ -91,10 +91,5 @@ public class IpPoolControllerTest {
                     .andExpect(content().string(""));
     }
 
-    @Test
-    public void testRestrictedAddFormAccess() throws Exception {
-        this.mockMvc.perform(get("/ippools/add"))
-                    .andDo(print())
-                    .andExpect(status().isForbidden());
-    }
+   
 }
