@@ -28,7 +28,7 @@ To configure the application, you need to create a `.env` file in the root direc
 
 ```dotenv
 WEB_APP_PORT="3000"
-DB_USERNAME="user"
+DB_USERNAME="davylis"
 DB_PASSWORD="password"
 DB_URL="jdbc:mysql://localhost:3306/database?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
 ```
