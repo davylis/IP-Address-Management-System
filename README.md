@@ -1,4 +1,14 @@
 # IP-Address-Management-System
+This project is made for Back End Programming Course at Haaga-Helia UAS. This web-based application are designed to streamline the management of IP addresses and associated network recources. With this application you can monitor, and maintain IP address pools, track device assigments, and manage related network configurations. The application is built with Spring Boot and Thymeleaf.
+
+## Features
+- **User Authentication**: Secure user authentication to access the application.
+- **Role-Based Access Control**:User roles(Admin, User) with speciific permissions for actions like adding, editing, or deleting IP addresses.
+- **IP Management**: Create, view, update and delete IP pools, including defining start and end IP ranges and gateways.
+- **IP Address Management**:Add, edit, delete, and assign individual IP addresses to devices or services.
+- **Services Association**:Link IP addresses with specific network services and track their current usage and status.
+- **Service Status Monitoring**: View and update service statuses associated with IP addresses.
+- **Responsive Design**:Mobile-friendly interface.
 
 ## IP Pools Main Page
 
@@ -11,6 +21,22 @@
 ## IP Services Page
 
 ![IP Addresses screen](./assets/ipservices.png)
+
+## Try it yourself
+This site was built using [our own home server](https://ipms.tylencloud.com/login).
+
+```
+username: user
+password: user
+
+``
+
+
+
+## Technologies Used
+- **Spring Boot**
+- **Spring Security**
+- **MySQL**
 
 ## Prerequisites
 
