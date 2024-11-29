@@ -28,7 +28,6 @@ This site was deployed using [our own home server](https://ipms.tylencloud.com/l
 ```
 username: user
 password: user
-
 ```
 
 ## Technologies Used
