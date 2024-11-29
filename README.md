@@ -1,5 +1,5 @@
 # IP-Address-Management-System
-This project is made for Back End Programming Course at Haaga-Helia UAS. This web-based application are designed to streamline the management of IP addresses and associated network recources. With this application you can monitor, and maintain IP address pools, track device assigments, and manage related network configurations. The application is built with Spring Boot and Thymeleaf.
+This project is made for Back End Programming Course at Haaga-Helia UAS. This web-based application are designed to streamline the management of IP addresses and associated network recources. With this application you can monitor, and maintain IP address pools, track device assigments, and manage related network configurations.
 
 ## Features
 - **User Authentication**: Secure user authentication to access the application.
