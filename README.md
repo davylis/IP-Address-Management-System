@@ -23,15 +23,13 @@ This project is made for Back End Programming Course at Haaga-Helia UAS. This we
 ![IP Addresses screen](./assets/ipservices.png)
 
 ## Try it yourself
-This site was built using [our own home server](https://ipms.tylencloud.com/login).
+This site was deployed using [our own home server](https://ipms.tylencloud.com/login).
 
 ```
 username: user
 password: user
 
-``
-
-
+```
 
 ## Technologies Used
 - **Spring Boot**
