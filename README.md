@@ -22,7 +22,7 @@ This web-based application are designed to streamline the management of IP addre
 ![IP Addresses screen](./assets/ipservices.png)
 
 ## Try it yourself
-This site was deployed using [our own family server](https://ipms.tylencloud.com/login).
+This site was deployed using [our own family server](https://ipms.davydovcloud.com).
 ```
 username: user
 password: user
