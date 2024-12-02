@@ -21,11 +21,6 @@ This web-based application are designed to streamline the management of IP addre
 ## IP Services Page
 ![IP Addresses screen](./assets/ipservices.png)
 
-```
-username: user
-password: user
-```
-
 ## Technologies Used
 - **Spring Boot**
 - **Spring Security**
