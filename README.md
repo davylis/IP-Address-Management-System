@@ -21,8 +21,6 @@ This web-based application are designed to streamline the management of IP addre
 ## IP Services Page
 ![IP Addresses screen](./assets/ipservices.png)
 
-## Try it yourself
-This site was deployed using [our own family server](https://ipms.davydovcloud.com).
 ```
 username: user
 password: user
